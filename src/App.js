@@ -1,12 +1,17 @@
-import React from 'react';
-import './index.css';
+import React from "react";
+import "./index.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
 
 function App() {
   return (
-    <div className="text-center bg-blue-500 text-white py-10">
-      <h1 className="text-3xl font-bold ">BookMySalon</h1>
-     
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </Router>
   );
 }
 
