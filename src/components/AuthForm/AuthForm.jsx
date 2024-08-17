@@ -26,11 +26,11 @@ const AuthForm = ({
     />
     {formType === "Sign Up" && (
       <InputField
-        label="Password"
-        type="password"
+        label="Name"
+        type="name"
         value={values.password}
-        onChange={handleChange("password")}
-        placeholder="Enter your password"
+        onChange={handleChange("Name")}
+        placeholder="Enter your Name"
       />
     )}
     {showOtp && <OtpInput otp={otp} setOtp={setOtp} />}
