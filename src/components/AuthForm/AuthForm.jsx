@@ -1,6 +1,5 @@
 import React from "react";
 import InputField from "../InputField/InputField";
-import OtpInput from "../OtpInput/OtpInput";
 import Button from "../Button/Button";
 
 const AuthForm = ({
@@ -8,9 +7,6 @@ const AuthForm = ({
   handleSubmit,
   handleChange,
   values,
-  showOtp,
-  otp,
-  setOtp,
 }) => (
   <form
     className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -27,13 +23,12 @@ const AuthForm = ({
     {formType === "Sign Up" && (
       <InputField
         label="Name"
-        type="name"
-        value={values.password}
-        onChange={handleChange("Name")}
+        type="text"
+        value={values.name}
+        onChange={handleChange("name")}
         placeholder="Enter your Name"
       />
     )}
-    {showOtp && <OtpInput otp={otp} setOtp={setOtp} />}
     <div className="flex items-center">
       <Button type="submit" label={formType} />
     </div>
