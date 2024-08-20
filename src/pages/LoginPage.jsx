@@ -1,12 +1,11 @@
-// src/pages/LoginPage.js
 import React, { useState } from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
-import { sendOtp, verifyOtp } from "../services/authService";
+import { loginOtp } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [values, setValues] = useState({ email: "" });
-  const [otp, setOtp] = useState("");
-  const [showOtp, setShowOtp] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (field) => (e) => {
     setValues({ ...values, [field]: e.target.value });
@@ -14,11 +13,11 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (showOtp) {
-      await verifyOtp(otp);
-    } else {
-      await sendOtp(values.email);
-      setShowOtp(true);
+    try {
+      const response = await loginOtp(values.email);
+      navigate("/otp", { state: { userId: response.userId,type: 'login' } });
+    } catch (error) {
+      console.log("Failed to send OTP. Please try again.");
     }
   };
 
@@ -30,9 +29,6 @@ const LoginPage = () => {
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           values={values}
-          showOtp={showOtp}
-          otp={otp}
-          setOtp={setOtp}
         />
       </div>
     </div>

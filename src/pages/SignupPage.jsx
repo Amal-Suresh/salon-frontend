@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
 import { sendOtp } from "../services/authService";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
   const [values, setValues] = useState({ email: "", name: "" });
@@ -16,7 +16,7 @@ const SignupPage = () => {
     e.preventDefault();
     try {
       const response = await sendOtp(values.email, values.name);
-      navigate("/otp", { state: { userId: response.userId } });
+      navigate("/otp", { state: { userId: response.userId, type: 'signup' } });
     } catch (error) {
       console.log("Failed to send OTP. Please try again.");
     }
