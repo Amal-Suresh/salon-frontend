@@ -17,7 +17,6 @@ const OtpInput = ({ otp, setOtp }) => {
     updatedOtp[index] = value;
     setOtp(updatedOtp);
 
-    // Move focus to the next input
     if (value) {
       const nextIndex = index + 1;
       if (nextIndex < otp.length) {
