@@ -1,15 +1,12 @@
 // src/pages/SignupPage.js
 import React, { useState } from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
-import { sendOtp, verifyOtp } from "../services/authService";
+import { sendOtp } from "../services/authService";
 import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
   const [values, setValues] = useState({ email: "", name: "" });
-  const [userId, setUserId] = useState(null);
-  const [showOtp, setShowOtp] = useState(false);
   const navigate = useNavigate();
-  
 
   const handleChange = (field) => (e) => {
     setValues({ ...values, [field]: e.target.value });
