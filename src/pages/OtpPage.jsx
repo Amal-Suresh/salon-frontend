@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import OtpInput from "../components/OtpInput/OtpInput";
 import { loginVerifyOtp, verifyOtp } from "../services/authService";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
 const OtpPage = () => {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userId = location.state?.userId;
   const type = location.state?.type;
@@ -16,11 +19,13 @@ const OtpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let response;
       if (type === "signup") {
-        await verifyOtp(otp.join(""), userId);
+        response =  await verifyOtp(otp.join(""), userId);
       } else if (type === "login") {
-        await loginVerifyOtp(otp.join(""), userId);
+        response = await loginVerifyOtp(otp.join(""), userId);
       }
+      dispatch(setCredentials({ token: response.token, name: response.name }));
       navigate("/");
     } catch (error) {
       setError("Invalid OTP. Please try again.");
@@ -36,7 +41,7 @@ const OtpPage = () => {
             Verify OTP
           </button>
           {error && <p className="text-red-500 mt-2">{error}</p>}
-        </form>
+        </form> 
       </div>
     </div>
   );

@@ -39,6 +39,8 @@ export const loginVerifyOtp = async(otp, userId) =>{
       otp,
       userId,
     });
+    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     console.error("Error verifying OTP:", error);
